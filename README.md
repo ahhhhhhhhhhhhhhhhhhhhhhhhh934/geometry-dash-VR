@@ -34,7 +34,9 @@ Meta's current Unity guidance recommends Unity OpenXR for new projects. The lega
 - [x] Add a tracked-head/controller rig reference component
 - [x] Add an experimental hand-contact locomotion prototype
 - [x] Document the Horizon OS / APK build and deployment workflow
-- [ ] Create and configure the first Unity scene
+- [x] Add a Unity Editor command that generates the first prototype scene
+- [x] Add runtime-generated 3D obstacle course, tracked headset/controller poses, and auto-run/jump prototype
+- [ ] Open the project in Unity and resolve any editor/package issues
 - [ ] Configure Android + OpenXR + Meta Quest build settings in Unity Editor
 - [ ] Generate the first APK
 - [ ] Test on a physical Quest 3
@@ -48,10 +50,10 @@ Meta's current Unity guidance recommends Unity OpenXR for new projects. The lega
 5. In Unity, open **Edit > Project Settings > XR Plug-in Management** and install XR Plug-in Management if prompted.
 6. Enable **OpenXR** for the Android build target. Enable the appropriate Meta Quest / Meta XR OpenXR feature group when available.
 7. In **File > Build Profiles**, enable the **Meta Quest** platform. If that platform is not offered by the installed editor, use Android as the build target.
-8. Create a scene at `Assets/Scenes/VRPrototype.unity` and add an XR Origin with a tracked camera and left/right controller transforms.
-9. Add a `CharacterController` to the rig root and attach `HandPushLocomotion`. Assign the hand transforms in the Inspector.
-10. Add the scene to the Build Profile's Scene List. Set the app orientation and other Android player settings as appropriate for an immersive app.
-11. Connect a Quest headset to the development computer and use Unity's **Build** or **Build And Run** action. Unity produces an APK.
+8. In the Unity Editor, run **Geometry Dash VR > Create Prototype Scene**. This creates `Assets/Scenes/VRPrototype.unity` and adds it to Build Settings.
+9. Enable OpenXR for Android and configure the Quest controller interaction profile. The generated scene contains a tracked headset/controller rig and a basic auto-run obstacle course.
+10. In Play Mode, use controller trigger to jump (or Space in the editor) and the left controller thumbstick to steer. This is an early prototype; collision, comfort, and device behavior still need testing.
+11. Add the scene to the Meta Quest Build Profile if it is not already listed. Connect a Quest headset through an eligible developer setup and use Unity's **Build** or **Build And Run** action. Unity produces an APK.
 
 For Meta-specific hand tracking, interaction, passthrough, or platform APIs, add the Meta XR SDK packages through Unity Package Manager and use the Meta Project Setup Tool to check the project configuration. Do not add platform-specific SDKs until a feature needs them.
 
