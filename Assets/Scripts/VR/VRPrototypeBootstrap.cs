@@ -62,16 +62,17 @@ namespace GeometryDashVR.VR
             block.transform.position = position;
             block.transform.localScale = scale;
 
-            var material = new Material(Shader.Find("Universal Render Pipeline/Lit"));
-            if (material.shader == null)
-                material.shader = Shader.Find("Standard");
+            Shader shader = Shader.Find("Universal Render Pipeline/Lit");
+            if (shader == null)
+                shader = Shader.Find("Standard");
+            var material = new Material(shader);
             material.color = color;
             block.GetComponent<Renderer>().material = material;
 
             if (obstacle)
             {
-                var hit = block.AddComponent<VRObstacle>();
-                hit.enabled = true;
+                block.GetComponent<Collider>().isTrigger = true;
+                block.AddComponent<VRObstacle>();
             }
 
             return block;
