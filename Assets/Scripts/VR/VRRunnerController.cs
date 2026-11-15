@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.XR;
+using UnityEngine.InputSystem;
 
 namespace GeometryDashVR.VR
 {
@@ -11,7 +12,6 @@ namespace GeometryDashVR.VR
     [RequireComponent(typeof(CharacterController))]
     public sealed class VRRunnerController : MonoBehaviour
     {
-        [SerializeField] private Transform headCamera;
         [SerializeField, Min(0f)] private float forwardSpeed = 7f;
         [SerializeField, Min(0f)] private float jumpHeight = 2.1f;
         [SerializeField, Min(0f)] private float gravity = 22f;
@@ -59,7 +59,7 @@ namespace GeometryDashVR.VR
 
         private bool JumpPressed()
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Keyboard.current != null && Keyboard.current.spaceKey.wasPressedThisFrame)
                 return true;
 
             return ControllerButtonPressed(XRNode.LeftHand, CommonUsages.triggerButton) ||
@@ -68,9 +68,13 @@ namespace GeometryDashVR.VR
 
         private float ReadSteering()
         {
-            float keyboard = Input.GetAxisRaw("Horizontal");
-            if (Mathf.Abs(keyboard) > 0.01f)
-                return keyboard;
+            if (Keyboard.current != null)
+            {
+                float keyboard = 0f;
+                if (Keyboard.current.aKey.isPressed || Keyboard.current.leftArrowKey.isPressed) keyboard -= 1f;
+                if (Keyboard.current.dKey.isPressed || Keyboard.current.rightArrowKey.isPressed) keyboard += 1f;
+                if (Mathf.Abs(keyboard) > 0.01f) return keyboard;
+            }
 
             InputDevice left = InputDevices.GetDeviceAtXRNode(XRNode.LeftHand);
             if (left.isValid && left.TryGetFeatureValue(CommonUsages.primary2DAxis, out Vector2 axis))
