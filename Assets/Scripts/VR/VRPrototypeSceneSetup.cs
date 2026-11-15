@@ -17,16 +17,16 @@ namespace GeometryDashVR.VR.Editor
             world.AddComponent<VRPrototypeBootstrap>();
 
             var player = new GameObject("VR Player");
-            player.transform.position = new Vector3(0f, 1.1f, 0f);
+            player.transform.position = Vector3.zero;
             var character = player.AddComponent<CharacterController>();
             character.height = 1.8f;
             character.radius = 0.28f;
-            character.center = new Vector3(0f, 0f, 0f);
+            character.center = new Vector3(0f, 0.9f, 0f);
 
             var cameraObject = new GameObject("Player Camera");
             cameraObject.tag = "MainCamera";
             cameraObject.transform.SetParent(player.transform, false);
-            cameraObject.transform.localPosition = new Vector3(0f, 0.65f, 0f);
+            cameraObject.transform.localPosition = Vector3.zero;
             cameraObject.AddComponent<Camera>();
             cameraObject.AddComponent<AudioListener>();
 
