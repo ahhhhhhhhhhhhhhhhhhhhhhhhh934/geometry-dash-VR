@@ -65,6 +65,10 @@ The APK is installed on the headset for local testing. Meta documents deployment
 
 A simulator can help with early scene iteration, but the final experience must be tested on a physical Quest device.
 
+## The Map prototype
+
+An original explorable 3D map inspired by the announced 2.21 map concepts is included in `Assets/Scripts/Map`. It has a snowy island hub, user-made platformer stage markers, Demon Tower landmarks, an unlock shrine, and hidden discoveries. In Unity, run **Geometry Dash VR > Create The Map Scene** to generate `Assets/Scenes/TheMap.unity`. This is an early visual/interaction prototype: progress persistence, full level content, map UI, and Quest testing are not implemented yet.
+
 ## Locomotion prototype
 
 The initial hand-push script is an experimental starting point, not a complete Gorilla Tag implementation. It uses tracked hand movement while the grip button is held and the hand is touching a surface. Comfort options and collision testing are required before treating it as production-ready.
