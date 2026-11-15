@@ -103,12 +103,14 @@ namespace GeometryDashVR.Map
         {
             var secret = CreatePrimitive("Hidden secret crystal", PrimitiveType.Octahedron,
                 new Vector3(10f, 0.8f, 10f), Vector3.one * 0.9f, new Color(1f, 0.2f, 0.55f));
+            secret.GetComponent<Collider>().isTrigger = true;
             secret.AddComponent<MapSecret>();
             AddLabel("???", new Vector3(10f, 2.2f, 10f), 0.8f, new Color(1f, 0.55f, 0.8f));
 
             var secret2 = CreatePrimitive("Hidden cave entrance", PrimitiveType.Cube,
                 new Vector3(-11f, 1.2f, 29f), new Vector3(2.8f, 2.4f, 0.7f),
                 new Color(0.08f, 0.12f, 0.24f));
+            secret2.GetComponent<Collider>().isTrigger = true;
             secret2.AddComponent<MapSecret>();
         }
 
@@ -193,7 +195,8 @@ namespace GeometryDashVR.Map
             title = nodeTitle;
             subtitle = nodeSubtitle;
             unlocked = startsUnlocked;
-            var trigger = gameObject.AddComponent<SphereCollider>();
+            var trigger = GetComponent<SphereCollider>();
+            if (trigger == null) trigger = gameObject.AddComponent<SphereCollider>();
             trigger.isTrigger = true;
             trigger.radius = 1.8f;
         }
@@ -222,7 +225,10 @@ namespace GeometryDashVR.Map
         private void OnTriggerEnter(Collider other)
         {
             if (other.GetComponentInParent<CharacterController>() != null)
+            {
                 Debug.Log("[The Map] SECRET FOUND! A hidden discovery has been added to your collection.");
+                gameObject.SetActive(false);
+            }
         }
     }
 }
