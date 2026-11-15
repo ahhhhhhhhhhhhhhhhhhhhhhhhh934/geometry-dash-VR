@@ -30,11 +30,7 @@ namespace GeometryDashVR.VR.Editor
             cameraObject.AddComponent<Camera>();
             cameraObject.AddComponent<AudioListener>();
 
-            var runner = player.AddComponent<VRRunnerController>();
-            var runnerCamera = typeof(VRRunnerController).GetField(
-                "headCamera", System.Reflection.BindingFlags.Instance |
-                System.Reflection.BindingFlags.NonPublic);
-            runnerCamera?.SetValue(runner, cameraObject.transform);
+            player.AddComponent<VRRunnerController>();
 
             player.AddComponent<VRStartupCheck>();
 
